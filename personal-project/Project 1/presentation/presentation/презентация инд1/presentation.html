@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Волчок Кристина Александровна НПМбд-02-21">
-  <title>Лабораторная работа №2</title>
+  <title>presentation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -383,284 +383,64 @@ background-color: var(--r-background-color);
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide">
-  <h1 class="title">Лабораторная работа №2</h1>
-  <p class="subtitle">Информационная безопасность</p>
-  <p class="author">Волчок Кристина Александровна НПМбд-02-21</p>
-  <p class="institute">Российский университет дружбы народов, Москва,
-Россия</p>
-  <p class="date">12 сентября 2024</p>
-</section>
 
-<section id="тема-дискреционное-разграничение-прав-в-linux.-основные-атрибуты" class="slide level2">
-<h2>Тема: Дискреционное разграничение прав в Linux. Основные
-атрибуты</h2>
+<section id="цель-проекта" class="slide level2">
+<h2>Цель проекта</h2>
+<p>Цель данного проекта — установить и настроить дистрибутив Kali Linux
+на виртуальной машине с использованием VirtualBox. Kali Linux будет
+использоваться для проведения практических задач по информационной
+безопасности, включая тестирование на проникновение.</p>
 </section>
-<section id="цель-работы" class="slide level2">
-<h2>Цель работы</h2>
-<ul>
-<li>Получение практических навыков работы с атрибутами файлов в
-консоли</li>
-<li>Закрепление теоретических основ дискреционного разграничения доступа
-в ОС Linux</li>
-</ul>
+<section id="этап-1-установка-kali-linux" class="slide level2">
+<h2>Этап 1: Установка Kali Linux</h2>
+<h3 id="шаг-1-загрузка-образа-kali-linux">Шаг 1: Загрузка образа Kali
+Linux</h3>
+<p>Первым делом я скачала образ Kali Linux с официального сайта: <a href="https://www.kali.org/">Kali Linux</a>. Kali Linux — это
+дистрибутив на основе Debian, который включает множество инструментов
+для обеспечения безопасности и проведения тестов на проникновение.</p>
 </section>
-<section id="порядок-выполнения-работы" class="slide level2">
-<h2>Порядок выполнения работы</h2>
-<ol type="1">
-<li><strong>Создание учетной записи пользователя guest</strong>:
-<ul>
-<li>Команда: <code>useradd guest</code></li>
-<li>Команда для задания пароля: <code>passwd guest</code></li>
-</ul></li>
-<li><strong>Переход в систему под пользователем guest</strong>:
-<ul>
-<li>Вход в систему и проверка директории с помощью команды
-<code>pwd</code></li>
-</ul></li>
-<li><strong>Определение имени пользователя и групп</strong>:
-<ul>
-<li>Команда: <code>whoami</code> для имени пользователя</li>
-<li>Команда: <code>id</code> для идентификаторов uid, gid и групп</li>
-</ul></li>
-</ol>
+<section class="slide level2">
+
+<h3 id="шаг-2-установка-virtualbox">Шаг 2: Установка VirtualBox</h3>
+<p>Для работы с Kali Linux в виртуальной среде я использовала
+VirtualBox. Это бесплатная и удобная программа для создания виртуальных
+машин. Я скачала и установила VirtualBox на свой компьютер.</p>
 </section>
-<section id="работа-с-файлами-и-директориями" class="slide level2">
-<h2>Работа с файлами и директориями</h2>
-<ol start="4" type="1">
-<li><strong>Просмотр файла /etc/passwd</strong>:
-<ul>
-<li>Команда: <code>cat /etc/passwd</code></li>
-<li>Использование <code>grep</code> для поиска своей учетной записи:
-<code>cat /etc/passwd | grep guest</code></li>
-</ul></li>
-<li><strong>Определение существующих директорий в /home</strong>:
-<ul>
-<li>Команда: <code>ls -l /home/</code> для проверки прав доступа</li>
-</ul></li>
-<li><strong>Просмотр расширенных атрибутов директорий</strong>:
-<ul>
-<li>Команда: <code>lsattr /home</code></li>
-</ul></li>
-</ol>
+<section class="slide level2">
+
+<h3 id="шаг-3-настройка-виртуальной-машины">Шаг 3: Настройка виртуальной
+машины</h3>
+<p>После установки VirtualBox я создала новую виртуальную машину,
+выполнив следующие действия: - Выбрала тип системы:
+<strong>Linux</strong>; - Указала версию: <strong>Debian
+(64-bit)</strong>; - Выделила 2 ГБ оперативной памяти и 20 ГБ места на
+жёстком диске.</p>
 </section>
-<section id="создание-и-изменение-директорий" class="slide level2">
-<h2>Создание и изменение директорий</h2>
-<ol start="7" type="1">
-<li><strong>Создание директории dir1</strong>:
-<ul>
-<li>Команда: <code>mkdir dir1</code></li>
-<li>Проверка прав доступа и атрибутов: <code>ls -l</code> и
-<code>lsattr</code></li>
-</ul></li>
-<li><strong>Снятие прав доступа с директории dir1</strong>:
-<ul>
-<li>Команда: <code>chmod 000 dir1</code></li>
-<li>Проверка прав: <code>ls -l</code></li>
-</ul></li>
-</ol>
+<section class="slide level2">
+
+<h3 id="шаг-4-установка-kali-linux">Шаг 4: Установка Kali Linux</h3>
+<p>После того как образ Kali Linux был загружен в VirtualBox, я начала
+установку системы. В процессе я прошла стандартные этапы: 1. Выбор языка
+и региона. 2. Настройка сетевых параметров. 3. Настройка дисковой
+системы — использовала всё доступное пространство на виртуальном
+диске.</p>
 </section>
-<section id="проверка-доступа" class="slide level2">
-<h2>Проверка доступа</h2>
-<ol start="9" type="1">
-<li><strong>Создание файла в dir1</strong>:
-<ul>
-<li>Команда: <code>echo &quot;test&quot; &gt; /home/guest/dir1/file1</code></li>
-<li>Объяснение отказа в доступе: права на директорию отсутствуют</li>
-</ul></li>
-<li><strong>Заполнение таблицы прав и разрешенных действий</strong>:
-<ul>
-<li>Эксперименты с правами на директорию и файлы (см. таблицу )</li>
-</ul></li>
-</ol>
-<p>Таблица : Установленные права и разрешённые действия</p>
-<table>
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 6%" />
-<col style="width: 8%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 7%" />
-<col style="width: 9%" />
-<col style="width: 15%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-</colgroup>
-<thead>
-<tr>
-<th>Права директории</th>
-<th>Права файла</th>
-<th>Создание файла</th>
-<th>Удаление файла</th>
-<th>Запись в файл</th>
-<th>Чтение файла</th>
-<th>Смена директории</th>
-<th>Просмотр файлов в директории</th>
-<th>Переименование файла</th>
-<th>Смена атрибутов файла</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>d (000)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d –x (100)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d -w- (200)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d -wx (300)</td>
-<td>(000)</td>
-<td>+</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>-</td>
-<td>+</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d r– (400)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d r-x (500)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d rw- (600)</td>
-<td>(000)</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>d rwx (700)</td>
-<td>(000)</td>
-<td>+</td>
-<td>+</td>
-<td>-</td>
-<td>-</td>
-<td>+</td>
-<td>+</td>
-<td>+</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<p>Таблица : Минимально необходимые права для выполнения операций внутри
-директории</p>
-<table>
-<colgroup>
-<col style="width: 30%" />
-<col style="width: 37%" />
-<col style="width: 31%" />
-</colgroup>
-<thead>
-<tr>
-<th>Операция</th>
-<th>Минимальные права на директорию</th>
-<th>Минимальные права на файл</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Создание файла</td>
-<td>d -wx (300)</td>
-<td>(000)</td>
-</tr>
-<tr>
-<td>Удаление файла</td>
-<td>d -wx (300)</td>
-<td>(000)</td>
-</tr>
-<tr>
-<td>Чтение файла</td>
-<td>d –x (100)</td>
-<td>(400)</td>
-</tr>
-<tr>
-<td>Запись в файл</td>
-<td>d –x (100)</td>
-<td>(200)</td>
-</tr>
-<tr>
-<td>Переименование файла</td>
-<td>d -wx (300)</td>
-<td>(000)</td>
-</tr>
-<tr>
-<td>Создание поддиректории</td>
-<td>d -wx (300)</td>
-<td>(000)</td>
-</tr>
-<tr>
-<td>Удаление поддиректории</td>
-<td>d -wx (300)</td>
-<td>(000)</td>
-</tr>
-</tbody>
-</table>
+<section class="slide level2">
+
+<h3 id="шаг-5-первый-запуск-системы">Шаг 5: Первый запуск системы</h3>
+<p>После успешной установки системы я перезагрузила виртуальную машину.
+Для входа в систему использовала следующие данные: -
+<strong>Логин:</strong> root - <strong>Пароль:</strong> toor</p>
+<p>Теперь Kali Linux установлен и готов к дальнейшему использованию.</p>
 </section>
 <section id="выводы" class="slide level2">
 <h2>Выводы</h2>
-<p>В ходе выполнения лабораторной работы я ознакомилась с файловой
-системой Linux, её структурой, именами и содержанием каталогов. А также
-приобрела практические навыки по применению команд для работы с файлами
-и каталогами, по управлению процессами (и работами), по проверке
-использования диска и обслуживанию файловой системы.</p>
+<p>Я успешно установила Kali Linux на виртуальную машину с
+использованием VirtualBox. Это даёт мне безопасную и изолированную среду
+для выполнения задач, связанных с тестированием безопасности.
+Виртуальная машина позволяет использовать все возможности Kali Linux без
+риска для основной операционной системы.</p>
+<p>Этап выполнен успешно, и все задачи достигнуты.</p>
 </section>
 <section id="докладчик" class="slide level2">
 <h2>Докладчик</h2>
