@@ -1,0 +1,121 @@
+<h1 data-number="1" id="цель-работы"><span
+class="header-section-number">1</span> Цель работы</h1>
+<p>Установить Damn Vulnerable Web Application (DVWA) в гостевую систему
+Kali Linux для изучения и практики в области безопасности
+веб-приложений.</p>
+<h1 data-number="2" id="задание"><span
+class="header-section-number">2</span> Задание</h1>
+<ul>
+<li>Установить DVWA в гостевую систему Kali Linux.</li>
+<li>Использовать репозиторий: https://github.com/digininja/DVWA.</li>
+<li>Ознакомиться с основными уязвимостями, которые содержит DVWA.</li>
+<li>Понять различия между уровнями безопасности, предлагаемыми
+DVWA.</li>
+</ul>
+<h1 data-number="3" id="теоретическое-введение"><span
+class="header-section-number">3</span> Теоретическое введение</h1>
+<p><strong>Теоретическое введение</strong></p>
+<p><strong>DVWA (Damn Vulnerable Web Application)</strong> — это
+уязвимое веб-приложение, специально созданное для обучения и практики в
+области веб-безопасности. Оно содержит преднамеренные уязвимости для
+отработки техник их обнаружения и эксплуатации.</p>
+<p><strong>Основные уязвимости DVWA:</strong></p>
+<ul>
+<li><strong>Брутфорс</strong>: атака методом перебора паролей через
+форму входа.</li>
+<li><strong>Исполнение команд</strong>: возможность выполнять команды
+операционной системы через веб-интерфейс.</li>
+<li><strong>CSRF (Межсайтовая подделка запроса)</strong>: позволяет
+изменить пароль администратора без его ведома.</li>
+<li><strong>Внедрение файлов</strong>: подключение удаленных или
+локальных файлов в приложение.</li>
+<li><strong>SQL-инъекция</strong>: внедрение SQL-запросов через поля
+ввода.</li>
+<li><strong>Небезопасная загрузка файлов</strong>: загрузка вредоносных
+файлов на сервер.</li>
+<li><strong>XSS (Межсайтовый скриптинг)</strong>: внедрение скриптов в
+приложение или базу данных.</li>
+<li><strong>Пасхальные яйца</strong>: скрытые уязвимости, такие как
+раскрытие полных путей и обход аутентификации.</li>
+</ul>
+<p><strong>Уровни безопасности DVWA:</strong></p>
+<ul>
+<li><strong>Низкий</strong>: полностью уязвимый уровень без какой-либо
+защиты.</li>
+<li><strong>Средний</strong>: попытки защитить приложение, которые
+оказались неэффективными.</li>
+<li><strong>Высокий</strong>: уязвимости есть, но их эксплуатация
+затруднена.</li>
+<li><strong>Невозможный</strong>: все уязвимости устранены; используется
+для сравнения с уязвимыми уровнями.</li>
+</ul>
+<h1 data-number="4" id="выполнение-лабораторной-работы"><span
+class="header-section-number">4</span> Выполнение лабораторной
+работы</h1>
+<p><strong>Процесс установки DVWA</strong></p>
+<p><strong>Обновление системы:</strong></p>
+<p>Для начала я обновляю систему с помощью следующей команды:</p>
+<p><code>(sudo apt update &amp;&amp; sudo apt upgrade -y)</code></p>
+<figure>
+<img src="image/1.jpeg" alt="Установка DVWA" />
+<figcaption aria-hidden="true">Установка DVWA</figcaption>
+</figure>
+<p><strong>Установка необходимых пакетов:</strong></p>
+<p>После обновления системы я устанавливаю необходимые пакеты:</p>
+<figure>
+<img src="image/2.jpeg" alt="Установка необходимых пакетов" />
+<figcaption aria-hidden="true">Установка необходимых
+пакетов</figcaption>
+</figure>
+<p><strong>Запуск и настройка служб:</strong></p>
+<p>Затем я запускаю и настраиваю службы Apache и MariaDB для их
+автоматического запуска при старте системы:</p>
+<figure>
+<img src="image/3.jpeg" alt="Запуск и настройка служб" />
+<figcaption aria-hidden="true">Запуск и настройка служб</figcaption>
+</figure>
+<p><strong>Настройка базы данных:</strong></p>
+<p>После того как службы запущены, я перехожу к настройке базы
+данных:</p>
+<p><code>(sudo mysql_secure_installation)</code><br />
+<code>(sudo mysql -u root -p)</code></p>
+<p>В MySQL я ввожу следующие команды для создания базы данных и
+пользователя:</p>
+<p>```sql CREATE DATABASE dvwa; CREATE USER ‘dvwauser’@‘localhost’
+IDENTIFIED BY ‘password’; GRANT ALL PRIVILEGES ON dvwa.* TO
+‘dvwauser’@‘localhost’; FLUSH PRIVILEGES; EXIT;</p>
+<p>** Клонирование репозитория DVWA:**</p>
+<p>Теперь я клонирую репозиторий DVWA в директорию веб-сервера:</p>
+<p><code>(cd /var/www/html/)</code><br />
+<code>(sudo git clone https://github.com/digininja/DVWA.git)</code></p>
+<p><strong>Настройка прав доступа:</strong></p>
+<p>Я убеждаюсь, что права доступа к директории настроены корректно:</p>
+<p><code>(sudo chown -R www-data:www-data /var/www/html/DVWA/)</code><br />
+<code>(sudo chmod -R 755 /var/www/html/DVWA/)</code></p>
+<p>После этого я перехожу в папку конфигурации и настраиваю файл:</p>
+<p><code>(cd /var/www/html/DVWA/config/)</code><br />
+<code>(sudo cp config.inc.php.dist config.inc.php)</code><br />
+<code>(sudo nano config.inc.php)</code></p>
+<p><strong>Завершение установки через браузер:</strong></p>
+<p>Я открываю браузер и перехожу по адресу:</p>
+<p><code>http://localhost/DVWA/setup.php</code></p>
+<p>Нажимаю кнопку “Create / Reset Database”.</p>
+<p><strong>Вход в DVWA:</strong></p>
+<p>Перехожу на страницу входа:</p>
+<p><code>http://localhost/DVWA/login.php</code></p>
+<p>Ввожу следующие данные для входа:</p>
+<ul>
+<li>Имя пользователя: <code>admin</code></li>
+<li>Пароль: <code>password</code></li>
+</ul>
+<figure>
+<img src="image/4.jpeg" alt="Настроенная DVWA" />
+<figcaption aria-hidden="true">Настроенная DVWA</figcaption>
+</figure>
+<h1 data-number="5" id="выводы"><span
+class="header-section-number">5</span> Выводы</h1>
+<p>В результате выполнения задания была успешно установлена DVWA в
+гостевую систему Kali Linux. Это позволяет получить практический опыт в
+области веб-безопасности, изучая и эксплуатируя различные уязвимости.
+Работа с DVWA способствует повышению квалификации и пониманию методов
+защиты веб-приложений.</p>
