@@ -1,6 +1,6 @@
 FILES = $(patsubst %.md, %.docx, $(wildcard *.md))
 FILES += $(patsubst %.md, %.pdf, $(wildcard *.md))
-
+FILES += $(patsubst %.md, %.html, $(wildcard *.md))
 FILTERS =
 OPTIONS =
 PDF_ENGINE =
@@ -27,6 +27,9 @@ PDF_BIB_OPTIONS = --citeproc
 
 %.pdf: %.md
 	-pandoc "$<" $(FILTERS) $(PDF_ENGINE) $(PDF_OPTIONS) $(PDF_BIB_OPTIONS) $(FORMAT_OPTIONS) $(OPTIONS) -o "$@"
+	
+%.html: %.md
+	-pandoc "$<" $(FILTERS) $(HTML_OPTIONS) $(FORMAT_OPTIONS) $(OPTIONS) -o "$@"	
 
 all: $(FILES)
 
