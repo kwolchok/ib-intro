@@ -1,0 +1,169 @@
+<h1 data-number="1" id="цель-работы"><span
+class="header-section-number">1</span> Цель работы</h1>
+<p>Изучение механизмов изменения идентификаторов, применения SetUID- и
+Sticky-битов. Получение практических навыков работы в консоли с
+дополнительными атрибутами. Рассмотрение работы механизма смены
+идентификатора процессов пользователей, а также влияние бита Sticky на
+запись и удаление файлов.</p>
+<h1 data-number="2" id="теоретическое-введение"><span
+class="header-section-number">2</span> Теоретическое введение</h1>
+<p>SetUID, SetGID и Sticky - это специальные типы разрешений, которые
+позволяют задавать расширенные права доступа на файлы или каталоги. •
+<strong>SetUID</strong> (set user ID upon execution — «установка ID
+пользователя во время выполнения») являются флагами прав доступа в Unix,
+которые разрешают пользователям запускать исполняемые файлы с правами
+владельца исполняемого файла. • <strong>SetGID</strong> (set group ID
+upon execution — «установка ID группы во время выполнения») являются
+флагами прав доступа в Unix, которые разрешают пользователям запускать
+исполняемые файлы с правами группы исполняемого файла. • <strong>Sticky
+bit</strong> в основном используется в общих каталогах, таких как /var
+или /tmp, поскольку пользователи могут создавать файлы, читать и
+выполнять их, принадлежащие другим пользователям, но не могут удалять
+файлы, принадлежащие другим пользователям.</p>
+<h1 data-number="3" id="выполнение-лабораторной-работы"><span
+class="header-section-number">3</span> Выполнение лабораторной
+работы</h1>
+<p><strong>Создание программы</strong>:</p>
+<p>Для начала я убедилась, что компилятор gcc установлен, используя
+команду <code>gcc -v</code>. Затем отключила систему запретов до
+очередной перезагрузки системы командой <code>sudo setenforce 0</code>,
+после чего команда <code>getenforce</code> вывела “Permissive”.</p>
+<figure>
+<img src="image/1.jpeg" alt="Предварительная подготовка" />
+<figcaption aria-hidden="true">Предварительная подготовка</figcaption>
+</figure>
+<p>Проверила успешное выполнение команд “whereis gcc” и “whereis g++”
+(их расположение). Вошла в систему от имени пользователя guest командой
+“su - guest”. Создала программу simpleid.c командой “touch simpleid.c” и
+открыла её в редакторе командой “gedit /home/guest/simpleid.c”.</p>
+<figure>
+<img src="image/2.jpeg" alt="Вход в систему и создание программы" />
+<figcaption aria-hidden="true">Вход в систему и создание
+программы</figcaption>
+</figure>
+<p>Код программы выглядит следующим образом.</p>
+<figure>
+<img src="image/3.jpeg" alt="Код программы simpleid.c" />
+<figcaption aria-hidden="true">Код программы simpleid.c</figcaption>
+</figure>
+<p>Скомпилировала программу и убедилась, что файл программы был создан
+командой “gcc simpleid.c -o simpleid”. Выполнила программу simpleid
+командой“./simpleid”, а затем выполнила системную программу id командой
+“id”. Результаты, полученные в результате выполнения обеих команд,
+совпадают (uid=1001 иgid=1001) .</p>
+<figure>
+<img src="image/1.jpeg"
+alt="Компиляция и выполнение программы simpleid" />
+<figcaption aria-hidden="true">Компиляция и выполнение программы
+simpleid</figcaption>
+</figure>
+<p>Усложнила программу, добавив вывод действительных идентификаторов
+.</p>
+<figure>
+<img src="image/3.jpeg" alt="Усложнение программы" />
+<figcaption aria-hidden="true">Усложнение программы</figcaption>
+</figure>
+<p>Получившуюся программу назвала simpleid2.c.</p>
+<figure>
+<img src="image/5.jpeg" alt="Переименование программы в simpleid2.c" />
+<figcaption aria-hidden="true">Переименование программы в
+simpleid2.c</figcaption>
+</figure>
+<p>Скомпилировала и запустила simpleid2.c командами “gcc simpleid2.c -o
+sipleid2” и “./simpleid2”.</p>
+<figure>
+<img src="image/6.jpeg" alt="Переименование программы в simpleid2.c" />
+<figcaption aria-hidden="true">Переименование программы в
+simpleid2.c</figcaption>
+</figure>
+<p>От имени суперпользователя выполнила команды “sudo chown root:guest
+/home/guest/simpleid2” и “sudo chmod u+s /home/guest/simpleid2”, затем
+выполнила проверку правильности установки новых атрибутов и смены
+владельца файла simpleid2 командой “sudo ls -l /home/guest/simpleid2”.
+Этими командами была произведена смена пользователя файла на root и
+установлен SetUID-бит.</p>
+<figure>
+<img src="image/6.jpeg"
+alt="Установка новых атрибутов (SetUID) и смена владельца файла" />
+<figcaption aria-hidden="true">Установка новых атрибутов (SetUID) и
+смена владельца файла</figcaption>
+</figure>
+<p>Запустила программы simpleid2 и id. Теперь появились различия в
+uid.</p>
+<figure>
+<img src="image/2.jpeg" alt="Запуск simpleid2 после установки SetUID" />
+<figcaption aria-hidden="true">Запуск simpleid2 после установки
+SetUID</figcaption>
+</figure>
+<p>Проделала тоже самое относительно SetGID-бита. Также можем заметить
+различия с предыдущим пунктом. Далее создаем программу readfile.c.</p>
+<p>Скомпилировала созданную программу командой “gcc readfile.c -o
+readfile”.Сменила владельца у файла readfile.c командой “sudo chown
+root:guest/home/guest/readfile.c” и поменяла права так, чтобы только
+суперпользовательмог прочитать его, а guest не мог, спомощью команды
+“sudo chmod 700 home/guest/readfile.c”. Теперь убедилась, что
+пользователь guest не может прочитать файл readfile.c командой “cat
+readfile.c”, получив отказ в доступе</p>
+<figure>
+<img src="image/7.jpeg"
+alt="Смена владельца и прав доступа у файла readfile.c" />
+<figcaption aria-hidden="true">Смена владельца и прав доступа у файла
+readfile.c</figcaption>
+</figure>
+<p>Поменяла владельца у программы readfile и устанавила SetUID.
+Проверила, может ли программа readfile прочитать файл readfile.c
+командой “./readfile readfile.c”. Прочитать удалось.Аналогично
+проверила, можно ли прочитать файл /etc/shadow. Прочитать удалось.</p>
+<figure>
+<img src="image/8.jpeg" alt="Запуск программы readfile" />
+<figcaption aria-hidden="true">Запуск программы readfile</figcaption>
+</figure>
+<p><strong>Исследование Sticky-бита</strong>:</p>
+<p>Командой “ls -l / | grep tmp” убеждилась, что атрибут Sticky на
+директории /tmp установлен. От имени пользователя guest создала файл
+file01.txt в директории /tmp со словом test командой “echo”test” &gt;
+/tmp/file01.txt”. Просматрела атрибуты у только что созданного файла и
+разрешаем чтение и запись для категории пользователей “все остальные”
+командами “ls -l /tmp/file01.txt” и “chmod o+rw /tmp/file01.txt”.</p>
+<figure>
+<img src="image/9.1.jpeg" alt="Создание файла file01.txt" />
+<figcaption aria-hidden="true">Создание файла file01.txt</figcaption>
+</figure>
+<p>От имени пользователя guest2 попробовала прочитать файл командой
+“cat/tmp/file01.txt” - это удалось. Далее попыталась дозаписать в файл
+слово test2,проверить содержимое файла и записать в файл слово test3,
+стерев при этом всю имеющуюся в файле информацию - эти операции удалось
+выполнить только в случае, если еще дополнительно разрешить чтение и
+запись для группы пользователей командой “chmod g+rw /tmp/file01.txt”.
+От имени пользователя guest2 попробовала удалить файл - это не удается
+ни в каком из случаев, возникает ошибка.</p>
+<figure>
+<img src="image/9.jpeg" alt="Создание файла file01.txt" />
+<figcaption aria-hidden="true">Создание файла file01.txt</figcaption>
+</figure>
+<p>Повысила права до суперпользователя командой “su -” и выполнила
+команду, снимающую атрибут t с директории /tmp “chmod -t /tmp”. После
+чего покинула режим суперпользователя командой “exit”. Повторила
+предыдущие шаги. Теперь мне удалось удалить файл file01.txt от имени
+пользователя, не являющегося его владельцем.</p>
+<figure>
+<img src="image/10.jpeg"
+alt="Удаление атрибута t (Sticky-бита) и повторение действий" />
+<figcaption aria-hidden="true">Удаление атрибута t (Sticky-бита) и
+повторение действий</figcaption>
+</figure>
+<p>И далее овысила свои права до суперпользователя и вернула атрибут t
+на директорию /tmp</p>
+<h1 data-number="4" id="выводы"><span
+class="header-section-number">4</span> Выводы</h1>
+<p>В ходе выполнения данной лабораторной работы я изучила механизмы
+изменения идентификаторов, применение SetUID- и Sticky-битов. Получила
+практические навыки работы в консоли с дополнительными атрибутами.
+Рассмотрела работу механизма смены идентификатора процессов
+пользователей, а также влияние бита Sticky на запись и удаление
+файлов.</p>
+<h1 data-number="5" id="список-литературы"><span
+class="header-section-number">5</span> Список литературы</h1>
+<p>Стандартные права SetUID, SetGID, Sticky в Linux [Электронный
+ресурс]. URL:
+https://linux-notes.org/standartny-e-prava-unix-suid-sgid-sticky-bity/.</p>
